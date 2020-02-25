@@ -1,13 +1,10 @@
-"""gagle_user_auth_rest_api URL Configuration
-"""
-
+# pyapi/urls.py
 from django.urls import include, path
 from rest_framework import routers
-from gagle_user_auth_rest_api.gettingstarted import views
+from . import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+router.register(r'heroes', views.HeroViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
