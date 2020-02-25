@@ -1,11 +1,34 @@
 # views.py
-from rest_framework import viewsets
+import json
+import uuid
+
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from suds.client import Client
 
 from .serializers import HeroSerializer
 from .models import Hero
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+
+@api_view(['POST'])
+def login(request):
+    decoded = request.body.decode('utf-8')
+    response = json.loads(decoded)
+
+    username = response['username']
+    password = response['password']
+
+    url = 'http://javabog.dk:9901/brugeradmin?wsdl'
+    client = Client(url)
+    client.service.hentBruger(username, password)
+
+    token = uuid.uuid1()
+
+    return Response(token, status=status.HTTP_200_OK)
 
 
 @api_view(['GET', 'POST'])
@@ -49,4 +72,5 @@ def hero_detail(request, name):
 
     elif request.method == 'DELETE':
         hero.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(status=status.HTTP_204_NO_CONTENT)
