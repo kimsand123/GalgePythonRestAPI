@@ -8,5 +8,4 @@ urlpatterns = [
     path('<str:name>', views.hero_detail),
     path('auth/', views.login),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-
 ]

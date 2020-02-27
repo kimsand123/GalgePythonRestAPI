@@ -73,4 +73,3 @@ def hero_detail(request, name):
     elif request.method == 'DELETE':
         hero.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status=status.HTTP_204_NO_CONTENT)
